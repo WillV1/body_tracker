@@ -1,17 +1,21 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const connectDB = require('./models');
 require('dotenv').config();
 
-connectDB();
+//Init middleware
+app.use(express.json({extended: false}));
 
 const POST = process.env.PORT || 3001;
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
-});
+//Routes
 
+const routes = require('./routes');
+
+app.use('/users', routes.users);
+app.use('/auth', routes.auth);
+
+//List for server
 app.listen(POST, () => {
   console.log(`listening on PORT ${POST}`)
 });
