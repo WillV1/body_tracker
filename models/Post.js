@@ -14,6 +14,21 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  date: {
+    type: Date
+  },
+  gender: {
+    type: String
+  },
+  weight: {
+    type: Number
+  },
+  height: {
+    type: Number
+  },
+  image: {
+    type: String
+  }
 });
 
 module.exports = User = mongoose.model('User', UserSchema);

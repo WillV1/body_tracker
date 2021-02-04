@@ -12,5 +12,6 @@ mongoose.connection.on('connected', () => console.log('MongoDB connected'));
 mongoose.connection.on('error', (err) => console.log(err));
 
 module.exports = {
-  User: require('./User')
+  User: require('./User'),
+  Profile: require('./Profile')
 };
