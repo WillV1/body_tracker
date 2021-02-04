@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const db = require('../models');
 
 router.post('/', [
@@ -22,7 +23,7 @@ router.post('/', [
     let user = await db.User.findOne({email});
 
     if(user) {
-      return res.status(400).json({errors: [ { msg: 'User already exists'}]})
+      return res.status(400).json({errors: [ { msg: 'User already exists'} ]})
     }
 
     user = new User({
@@ -36,15 +37,22 @@ router.post('/', [
     await user.save();
     //Return jsonwebtoken
 
-    res.send('User registered')
+    const payload = {
+      user: {
+        id: user.id
+      }
+    };
+
+    jwt.sign(payload, process.env.SECRET, { expiresIn: 360000 }, 
+      (err, token) => {
+        if(err) throw err;
+        res.json({ token })
+      });
+
   } catch (err) {
     console.error(err.message);
-    res.sendStatus(500).send('Server error');
+    return res.status(500).send('Server error');
   }
-
-
-
-  
 });
 
 module.exports = router; 
