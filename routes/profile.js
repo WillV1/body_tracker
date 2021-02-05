@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const cloudinary = require("../utils/cloudinary");
-const upload = require("../utils/multer");
 const auth = require('../middleware/auth');
 const db = require('../models');
 const { check, validatorResult, validationResult } = require('express-validator');

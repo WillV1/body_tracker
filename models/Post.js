@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
-  nuser: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
@@ -10,10 +10,6 @@ const PostSchema = new mongoose.Schema({
     default: Date.now
   },
   weight: {
-    type: Number,
-    required: true
-  },
-  height: {
     type: Number,
     required: true
   },
