@@ -22,9 +22,6 @@ const ProfileSchema = new mongoose.Schema({
   },
   bio: {
     type: String
-  },
-  image: {
-    type: String
   }
 });
 

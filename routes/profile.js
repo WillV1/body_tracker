@@ -37,7 +37,7 @@ router.post('/', [
     return res.status(400).json({ errors: errors.array()});
   }
 
-  const { gender, goalWeight, startingWeight, height, bio, image } = req.body;
+  const { gender, goalWeight, startingWeight, height, bio } = req.body;
 
   const profileFields = {};
   profileFields.user = req.user.id
@@ -46,15 +46,13 @@ router.post('/', [
   if(startingWeight) profileFields.startingWeight = startingWeight;
   if(height) profileFields.height = height;
   if(bio) profileFields.bio = bio;
-  if(image) profileFields.image = image;
 
   try {
-    let profile = db.Profile.findOne({ user: req.user.id});
-    const result = await cloudinary.uploader.upload(req.file.path);
+    let profile = await db.Profile.findOne({ user: req.user.id});
 
     if(profile) {
       profile = await db.Profile.findOneAndUpdate(
-        { user: req.user.id}, 
+        {user: req.user.id}, 
         {$set: profileFields}, 
         {new: true}
         );
@@ -63,9 +61,22 @@ router.post('/', [
     }
 
     profile = new Profile(profileFields);
+
     await profile.save();
 
-    res.json(profile)
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error')
+  }
+})
+
+router.delete('/', auth, async (req, res) => {
+  try {
+    await db.Profile.findOneAndRemove({user: req.user.id});
+    await db.User.findOneAndRemove({_id: req.user.id});
+
+    res.json({ msg: 'User deleted'})
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error')
