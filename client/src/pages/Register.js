@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setAlert } from '../actions/alert';
+import { register } from '../actions/auth';
 import PropTypes from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container'
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register }) => {
   const [registerData, setRegisterData] = useState({
     name: '',
     email: '',
@@ -25,7 +26,7 @@ const Register = ({ setAlert }) => {
     if(password != password2) {
       setAlert('Passwords do not match', 'danger')
     } else {
-      console.log('SUCCESS')
+      register({ name, email, password });
     }
   }
 
@@ -70,6 +71,7 @@ const Register = ({ setAlert }) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 }
 
-export default connect(null, {setAlert})(Register);
+export default connect(null, {setAlert, register})(Register);
