@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container'
@@ -44,6 +46,10 @@ const Login = () => {
     </Container>
     
   )
+}
+
+Login.propTypes = {
+
 }
 
 export default Login;
