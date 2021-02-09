@@ -1,44 +1,33 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../actions/auth';
 
 import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav'
+import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
 
 const Navigation = ({auth: { isAuthenticated, loading}, logout }) => {
 
   const authLinks = (
-    <Navbar bg="light" variant="light">
-    <Navbar.Brand href="/">Body Tracker</Navbar.Brand>
     <Nav className="ml-auto">
-      <Nav.Link href="/">Home</Nav.Link>
-      <Nav.Link href="/register">Register</Nav.Link>
-      <Nav.Link href="/login">Login</Nav.Link>
+      <Link onClick={logout} to="/"><Button variant="light">Logout</Button></Link>
     </Nav>
-  </Navbar>
   )
 
   const guestLinks = (
-    <Navbar bg="light" variant="light">
-    <Navbar.Brand href="/">Body Tracker</Navbar.Brand>
     <Nav className="ml-auto">
       <Nav.Link href="/">Home</Nav.Link>
       <Nav.Link href="/register">Register</Nav.Link>
       <Nav.Link href="/login">Login</Nav.Link>
     </Nav>
-  </Navbar>
   )
 
   return (
     <Navbar bg="light" variant="light">
     <Navbar.Brand href="/">Body Tracker</Navbar.Brand>
-    <Nav className="ml-auto">
-      <Nav.Link href="/">Home</Nav.Link>
-      <Nav.Link href="/register">Register</Nav.Link>
-      <Nav.Link href="/login">Login</Nav.Link>
-    </Nav>
+    { !loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)}
   </Navbar>
   )
 };
