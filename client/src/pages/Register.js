@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [registerData, setRegisterData] = useState({
@@ -39,7 +39,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     <Container>
       <h2>Register</h2>
       <Form onSubmit={e => onSubmit(e)}>
-        <Form.Group controlId="formGridAddress1">
+        <Form.Group controlId="formGridName1">
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" placeholder="Enter name" name="name" 
           onChange={e => onChange(e)}

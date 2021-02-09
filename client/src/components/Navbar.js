@@ -12,6 +12,7 @@ const Navigation = ({auth: { isAuthenticated, loading}, logout }) => {
 
   const authLinks = (
     <Nav className="ml-auto">
+    <Nav.Link href="/dashboard">Dashboard</Nav.Link>
       <Link onClick={logout} to="/"><Button variant="light">Logout</Button></Link>
     </Nav>
   )
@@ -25,9 +26,12 @@ const Navigation = ({auth: { isAuthenticated, loading}, logout }) => {
   )
 
   return (
-    <Navbar bg="light" variant="light">
-    <Navbar.Brand href="/">Body Tracker</Navbar.Brand>
+    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      <Navbar.Brand href="/">Body Tracker</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
     { !loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)}
+    </Navbar.Collapse>
   </Navbar>
   )
 };
