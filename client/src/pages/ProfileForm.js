@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createProfile } from '../actions/profile';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-const ProfileForm = () => {
+const ProfileForm = ({ createProfile, history }) => {
 
   const [profileData, setProfileData ] = useState({
     gender: '',
@@ -20,20 +22,22 @@ const ProfileForm = () => {
 
   const onChange = e => setProfileData({...profileData, [e.target.name]: e.target.value})
 
-  const onSubmit = async e => {
+  const onSubmit = e => {
     e.preventDefault();
+    createProfile(profileData, history)
   }
 
   return (
     <Container>
       <h2>Create Profile</h2>
       <Form onSubmit={e => onSubmit(e)}>
-        <Form.Group controlId="formGridGender">
-          <Form.Label>Gender</Form.Label>
-          <Form.Control type="text" placeholder="Enter gender" name="gender" 
-          onChange={e => onChange(e)}
-          value={gender} />
-        </Form.Group>
+      <Form.Group controlId="exampleForm.ControlSelect1">
+        <Form.Label>Gender</Form.Label>
+        <Form.Control as="select" name="gender" onChange={e => onChange(e)} value={gender}>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </Form.Control>
+      </Form.Group>
         <Form.Group controlId="formGridGoalWeight">
           <Form.Label>Goal Weight (in pounds)</Form.Label>
           <Form.Control type="number" placeholder="Enter goal weight" name="goalWeight" 
@@ -67,7 +71,8 @@ const ProfileForm = () => {
 }
 
 ProfileForm.propTypes = {
-
+  createProfile: PropTypes.func.isRequired
 }
 
-export default connect()(ProfileForm);
+
+export default connect(null, { createProfile })(withRouter(ProfileForm));

@@ -6,7 +6,8 @@ const ProfileSchema = new mongoose.Schema({
     ref: 'User'
   },
   gender: {
-    type: String
+    type: String,
+    required: true
   },
   goalWeight: {
     type: Number,

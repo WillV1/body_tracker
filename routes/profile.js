@@ -25,6 +25,7 @@ router.get('/me', auth, async (req, res) => {
 router.post('/', [
   auth,
   [
+    check('gender', 'Gender is required').not().isEmpty(),
     check('goalWeight', 'Goal weight is required').not().isEmpty(),
     check('startingWeight', 'Starting weight is required').not().isEmpty(),
     check('height', 'Height is required').not().isEmpty(),
