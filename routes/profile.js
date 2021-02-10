@@ -72,6 +72,7 @@ router.post('/', [
 
 router.delete('/', auth, async (req, res) => {
   try {
+    await db.Post.deleteMany({user: req.user.id});
     await db.Profile.findOneAndRemove({user: req.user.id});
     await db.User.findOneAndRemove({_id: req.user.id});
 
