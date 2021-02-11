@@ -12,6 +12,8 @@ const Navigation = ({auth: { isAuthenticated, loading}, logout }) => {
 
   const authLinks = (
     <Nav className="ml-auto">
+    <Nav.Link href="/chart">BMI Chart</Nav.Link>
+    <Nav.Link href="/check-in">Weight Check In</Nav.Link>
     <Nav.Link href="/dashboard">Dashboard</Nav.Link>
       <Link onClick={logout} to="/"><Button variant="light">Logout</Button></Link>
     </Nav>

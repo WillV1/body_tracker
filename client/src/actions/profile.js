@@ -20,6 +20,8 @@ export const getCurrentProfile = () => async dispatch => {
   }
 };
 
+
+
 //Create / update profile
 
 export const createProfile = (formData, history, edit = false) => async dispatch => {

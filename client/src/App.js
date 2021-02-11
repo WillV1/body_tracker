@@ -9,6 +9,8 @@ import Dashboard from './pages/Dashboard';
 import PrivateRoute from './routing/PrivateRoute';
 import ProfileForm from './pages/ProfileForm';
 import EditProfile from './pages/EditProfile';
+import CheckIn from './pages/CheckIn';
+import Chart from './pages/Chart';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -39,6 +41,8 @@ const App = () => {
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/create-profile" component={ProfileForm} />
         <PrivateRoute path="/edit-profile" component={EditProfile} />
+        <PrivateRoute path="/check-in" component={CheckIn} />
+        <PrivateRoute path="/chart" component={Chart} />
       </Switch>
     </Router>
     </Provider>
