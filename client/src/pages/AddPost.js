@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
+import DatePicker from 'react-datepicker';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPost } from '../actions/post';
+
+import "react-datepicker/dist/react-datepicker.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -9,11 +13,13 @@ import Container from 'react-bootstrap/Container';
 
 const AddPost = ({addPost}) => {
 
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(new Date());
   const [weight, setWeight] = useState('')
   const [image, setImage] = useState('')
 
-  const { date, weight, image } = postData;
+  const handleOnChange = date => {
+    setDate(date);
+  };
 
 
     const onSubmit = async e => {
@@ -29,13 +35,15 @@ const AddPost = ({addPost}) => {
 
   return (
     <Container>
-      <h2>Check in!</h2>
       <Form onSubmit={e => onSubmit(e)} method="post" encType="multipart/form-data">
-        <Form.Group controlId="formGridName1">
-          <Form.Label>Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter name" name="name" 
-          onChange={e => onChange(e)}
-          value={name} />
+        <Form.Group controlId="formGriDate">
+          <Form.Label>Date</Form.Label>
+          <DatePicker
+            selected={date}
+            name="dateFrom"
+            dateFormat="MM/dd/yyyy"
+            onChange={handleOnChange}
+          />
         </Form.Group>
         <Form.Group controlId="formGridWeight">
           <Form.Label>Current Weight</Form.Label>
@@ -52,52 +60,6 @@ const AddPost = ({addPost}) => {
         </Button>
       </Form>
     </Container>
-  //   <div>
-  //     <h3 className="center-align">Add Recipient</h3>
-  //     <div className="row">
-  //   <form className="col s6" onSubmit={e => onSubmit(e)} method="post" encType="multipart/form-data">
-  //     <div className="row">
-  //     <div className="input-field col s6 offset-s10">
-  //       <input id="name" type="text" value={name}
-  //       onChange={e => setName(e.target.value)}
-  //       className="validate" required/>
-  //       <label htmlFor="name">Name</label>
-  //     </div>
-  //     </div>
-  //     <div className="row">
-  //       <div className="input-field col s6 offset-s10">
-  //         <input id="relationship" type="text" value={relationship}
-  //         onChange={e => setRelationship(e.target.value)} 
-  //         className="validate" required/>
-  //         <label htmlFor="relationship">Relationship</label>
-  //       </div>
-  //     </div>
-  //     <div className="row">
-  //       <div className="input-field col s6 offset-s10">
-  //         <input id="budget" type="number" value={budget}
-  //         onChange={e => setBudget(e.target.value)}
-  //         className="validate" required/>
-  //         <label htmlFor="budget">Budget</label>
-  //       </div>
-  //     </div>
-  //     <div className="row">
-  //       <div className="file-field input-field  col s6 offset-s10">
-  //         <div className="btn">
-  //           <span>File</span>
-  //           <input type="file" onChange={e => setImage(e.target.files[0])}/>
-  //         </div>
-  //         <div className="file-path-wrapper">
-  //           <input className="file-path validate" type="text" />
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <div className="col s6 offset-s10">
-  //       <button className="btn waves-effect waves-light" type="submit" name="action">Submit
-  //       </button>
-  //     </div>
-  //   </form>
-  // </div>
-  //   </div>
   )
 }
 
